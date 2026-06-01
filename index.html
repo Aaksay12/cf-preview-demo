@@ -78,7 +78,7 @@
     // Show preview vs production context
     const host = window.location.hostname;
     const badge = document.getElementById('env-badge');
-    if (host.includes('pages.dev') && !host.startsWith('cf-preview-demo.pages.dev')) {
+    if (host.endsWith('.workers.dev') && !host.startsWith('cf-preview-demo.')) {
       badge.textContent = 'preview';
       badge.style.borderColor = '#f59e0b';
       badge.style.color = '#f59e0b';
