@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CF Preview Demo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Courier New', monospace;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .card {
+      border: 1px solid #333;
+      border-radius: 4px;
+      padding: 2rem;
+      max-width: 480px;
+      width: 100%;
+    }
+
+    .env-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+      background: #1a1a1a;
+      border: 1px solid #444;
+      color: #888;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      font-weight: normal;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+
+    p {
+      font-size: 0.85rem;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .meta {
+      font-size: 0.75rem;
+      color: #444;
+      border-top: 1px solid #222;
+      padding-top: 1rem;
+    }
+
+    .meta span { color: #666; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="env-badge" id="env-badge">production</div>
+    <h1>CF Preview Demo</h1>
+    <p>
+      This page is served from Cloudflare Pages.<br />
+      Edit it, open a PR, and get a preview URL automatically.
+    </p>
+    <div class="meta">
+      built at: <span id="build-time">—</span>
+    </div>
+  </div>
+
+  <script>
+    // Show preview vs production context
+    const host = window.location.hostname;
+    const badge = document.getElementById('env-badge');
+    if (host.includes('pages.dev') && !host.startsWith('cf-preview-demo.pages.dev')) {
+      badge.textContent = 'preview';
+      badge.style.borderColor = '#f59e0b';
+      badge.style.color = '#f59e0b';
+    }
+
+    // Inject build time (replaced by CI, falls back to load time)
+    const el = document.getElementById('build-time');
+    el.textContent = '__BUILD_TIME__' === '__BUILD_TIME__'
+      ? new Date().toISOString()
+      : '__BUILD_TIME__';
+  </script>
+</body>
+</html>
